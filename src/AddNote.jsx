@@ -1,29 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
-export default function AddNote({setNotes}) {
-    const [noteTitle, setNoteTitle] = useState('');
-    const [noteContent, setNoteContent] = useState('');
+export default function AddNote({ setNotes }) {
+  const [noteTitle, setNoteTitle] = useState('');
+  const [noteContent, setNoteContent] = useState('');
 
-    function handleAddNote() {
-        //no update if its all blank spaces
-        if (!noteTitle.trim() || !noteContent.trim()) 
-            return(
-            setNoteTitle(''),
-            setNoteContent('')
-        )
-        //note structure    
-        const newNote = {
-            id: Date.now(),
-            title: noteTitle,
-            content: noteContent
-        };
-
-        //update notes array
-        setNotes(prevNotes => [...prevNotes, newNote]);
-        setNoteTitle('');
-        setNoteContent('');
-
+  //generate random color
+  const getRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
     }
+    return color;
+  };
+
+  function handleAddNote() {
+    if (!noteTitle.trim() || !noteContent.trim()) {
+      setNoteTitle('');
+      setNoteContent('');
+      return;
+    }
+
+    const newNote = {
+      id: Date.now(),
+      title: noteTitle,
+      content: noteContent,
+      backgroundColor: getRandomColor(), // Generate a random color for this note
+    };
+
+    setNotes(prevNotes => [...prevNotes, newNote]);
+    setNoteTitle('');
+    setNoteContent('');
+  }
 
   return (
     <div className='header'>
@@ -40,5 +48,5 @@ export default function AddNote({setNotes}) {
       />
       <button onClick={handleAddNote}>Add Note</button>
     </div>
-  )
+  );
 }

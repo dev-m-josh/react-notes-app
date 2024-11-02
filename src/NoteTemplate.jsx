@@ -1,17 +1,17 @@
 import React from 'react';
 
-const Note = ({ note, setNotes }) => {
+const NoteTemplate = ({ note, setNotes }) => {
   const handleDelete = () => {
     setNotes(prevNotes => prevNotes.filter(noteToDelete => noteToDelete.id !== note.id));
   };
 
   return (
-    <div className='note'>
+    <div className='note' style={{ backgroundColor: note.backgroundColor }}>
       <h3>{note.title}</h3>
       <p>{note.content}</p>
-      <button onClick={handleDelete}>Delete</button>
+      <button onClick={handleDelete}>✖</button>
     </div>
   );
 };
 
-export default Note;
+export default NoteTemplate;
